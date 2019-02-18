@@ -2,7 +2,7 @@
 为了让单个微服务专注于业务代码的开发。由架构组统一研发标准，涉及到`代码规范`、`打包规范`、`部署规范`等方面，下面分别描述
 
 ## Gitlab Template
-新建工程时选择相应的Template，分别创建Service、Job等工程
+新建工程时选择相应的Template，分别创建`Service`、`Job`等工程
 
 ## Gradle插件
 打开工程下的build.gradle文件可看到默认引入了`cloud-native`插件
