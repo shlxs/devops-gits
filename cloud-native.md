@@ -30,7 +30,7 @@ compileJava {
 ```
 
 ## 配置参数
-有些参数在所有模块中都不会变化， 例如端口、日志等。将这些参数统一放到bootstrap.properties，docker打包时与jar放到同一目录
+有些参数在所有模块中都不会变化， 例如端口、日志等。将这些参数统一放到`bootstrap.properties`，docker打包时与jar放到同一目录
 ```properties
 logging.file=/opt/logs/${"APP_NAME"}.log
 logging.file.max-history=10
@@ -62,7 +62,6 @@ spring.application.version=${"APP_VERSION"}
 | org.apache.kafka | kafka-tools | 2.1.0 |
 
 ## 打包
-### docker
 Dockerfile
 ``` dockerfile
 FROM harbor.nj.com/ops/centos7-ssh-jdk8:latest
@@ -72,6 +71,7 @@ ENTRYPOINT ["/opt/app/boot.jar"]
 HEALTHCHECK --interval=10s --timeout=10s --retries=12 CMD curl -f http://localhost:8080/actuator/health || exit 1
 ```
 
+## 部署
 ### kubernetes
 在插件中内置rancher-k8s.yml文件，提供环境变量修改
 ``` yml
