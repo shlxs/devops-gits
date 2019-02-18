@@ -60,3 +60,73 @@ spring.application.version=${"APP_VERSION"}
 | org.apache.kafka | kafka-log4j-appender | 2.1.0 |
 | org.apache.kafka | kafka-streams | 2.1.0 |
 | org.apache.kafka | kafka-tools | 2.1.0 |
+
+## 打包
+### Dockerfile
+``` dockerfile
+FROM harbor.nj.com/ops/centos7-ssh-jdk8:latest
+COPY *.jar /opt/app/boot.jar
+EXPOSE 8080
+ENTRYPOINT ["/opt/app/boot.jar"]
+HEALTHCHECK --interval=10s --timeout=10s --retries=12 CMD curl -f http://localhost:8080/actuator/health || exit 1
+```
+### rancher-k8s.yml
+``` yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${project.name}
+spec:
+  ports:
+  - port: 8080
+  selector:
+    app: ${project.name}
+
+---
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ${project.name}
+spec:
+  selector:
+    matchLabels:
+      app: ${project.name}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ${project.name}
+    spec:
+      containers:
+        - name: ${project.name}-${build.time}
+          image: harbor.nj.com/bfas/${project.name}:${project.version}
+          env:
+#            - name: JVM_OPTS
+#              value: -Xms512m -Xmx512m -Dhttp.proxyHost=10.0.0.1 -Dhttp.proxyPort=3128
+            - name: KAFKA_SERVERS
+              value: kafka:9092
+            - name: ELASTICSEARCH_SERVERS
+              value: elasticsearch:9200
+            - name: KAFKA_FETCH_THREADS
+              value: "3"
+            - name: BAIDUYUN_APP_ID
+              value: "15466159"
+            - name: BAIDUYUN_KEY_ID
+              value: 6EmHAyXdOVg4R7d1QZgkWQKK
+            - name: BAIDUYUN_KEY_SECRET
+              value: PZ2OKFgmdrLqDFb5sQAU1cOZL95msIkU
+            - name: BAIDUYUN_RATE_LIMIT
+              value: "10"
+            - name: ALIYUN_KEY_ID
+              value: LTAIvVG69z0LTEXh
+            - name: ALIYUN_KEY_SECRET
+              value: sdFFZ4vLFaSWn3W4DVa08LcZiGhd02
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+```
