@@ -29,6 +29,7 @@ spring.application.version=${"APP_VERSION"}
 
 ## Spring Boot Starter
 提供web、kafka、elasticsearch、jdbc等starter
+
 | Starter | 地址 | 描述 |
 | ------ | ------ | ------ |
 | web | com.dobest:dobest-cloud-native-web | |
@@ -37,8 +38,13 @@ spring.application.version=${"APP_VERSION"}
 
 ## 版本
 参考spring-boot-dependencies方式，定义dobest-cloud-native-dependencies，指明项目中用到的Spring Boot、Spring Kafka版本
-| Starter | 地址 | 版本 |
+
+| 组ID | 工件ID | 版本 |
 | ------ | ------ | ------ |
-| Spring Boot | com.dobest:dobest-cloud-native-web | 2.2.1.RELEASE |
-| Spring Kafka | com.dobest:dobest-cloud-native-kafka | kafka监控、指标 |
-| Kafka | com.dobest:dobest-cloud-native-elasticsearch | elasticsearch监控、指标 |
+| org.apache.kafka | kafka_2.11 | 2.1.0 |
+| org.apache.kafka | kafka_2.12 | 2.1.0 |
+| org.apache.kafka | kafka-clients | 2.1.0 |
+| org.apache.kafka | kafka-log4j-appender | 2.1.0 |
+| org.apache.kafka | kafka-streams | 2.1.0 |
+| org.apache.kafka | kafka-tools | 2.1.0 |
+
