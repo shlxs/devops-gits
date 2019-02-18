@@ -62,7 +62,8 @@ spring.application.version=${"APP_VERSION"}
 | org.apache.kafka | kafka-tools | 2.1.0 |
 
 ## 打包
-### Dockerfile
+### docker
+Dockerfile
 ``` dockerfile
 FROM harbor.nj.com/ops/centos7-ssh-jdk8:latest
 COPY *.jar /opt/app/boot.jar
@@ -70,7 +71,9 @@ EXPOSE 8080
 ENTRYPOINT ["/opt/app/boot.jar"]
 HEALTHCHECK --interval=10s --timeout=10s --retries=12 CMD curl -f http://localhost:8080/actuator/health || exit 1
 ```
-### rancher-k8s.yml
+
+### kubernetes
+在插件中内置rancher-k8s.yml文件，提供环境变量修改
 ``` yml
 apiVersion: v1
 kind: Service
