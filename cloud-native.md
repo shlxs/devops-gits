@@ -110,20 +110,6 @@ spec:
               value: kafka:9092
             - name: ELASTICSEARCH_SERVERS
               value: elasticsearch:9200
-            - name: KAFKA_FETCH_THREADS
-              value: "3"
-            - name: BAIDUYUN_APP_ID
-              value: "15466159"
-            - name: BAIDUYUN_KEY_ID
-              value: 6EmHAyXdOVg4R7d1QZgkWQKK
-            - name: BAIDUYUN_KEY_SECRET
-              value: PZ2OKFgmdrLqDFb5sQAU1cOZL95msIkU
-            - name: BAIDUYUN_RATE_LIMIT
-              value: "10"
-            - name: ALIYUN_KEY_ID
-              value: LTAIvVG69z0LTEXh
-            - name: ALIYUN_KEY_SECRET
-              value: sdFFZ4vLFaSWn3W4DVa08LcZiGhd02
           imagePullPolicy: Always
           readinessProbe:
             httpGet:
